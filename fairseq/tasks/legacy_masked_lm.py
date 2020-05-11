@@ -78,7 +78,7 @@ class LegacyMaskedLMTask(FairseqTask):
 
         return cls(args, dictionary)
 
-    def load_dataset(self, split, epoch=1, combine=False):
+    def load_dataset(self, split, epoch=1, combine=False, **kwargs):
         """Load a given dataset split.
 
         Args:
@@ -89,7 +89,6 @@ class LegacyMaskedLMTask(FairseqTask):
         paths = utils.split_paths(self.args.data)
         assert len(paths) > 0
         data_path = paths[(epoch - 1) % len(paths)]
-        logger.info("data_path", data_path)
 
         for k in itertools.count():
             split_k = split + (str(k) if k > 0 else '')
@@ -115,7 +114,7 @@ class LegacyMaskedLMTask(FairseqTask):
                         ds.sizes,
                         self.args.tokens_per_sample,
                         break_mode=self.args.break_mode,
-                        doc_break_size=1,
+                        doc_break_size=3,
                     )
                 )
 

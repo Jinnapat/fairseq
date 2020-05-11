@@ -182,6 +182,7 @@ def train(args, trainer, task, epoch_itr, max_update=math.inf):
     trainer.begin_epoch(epoch_itr.epoch)
 
     valid_subsets = args.valid_subset.split(',')
+
     for samples in progress:
         with metrics.aggregate('train_inner'):
             log_output = trainer.train_step(samples)

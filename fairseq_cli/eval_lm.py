@@ -176,12 +176,13 @@ def main(parsed_args, **unused_kwargs):
             tokens = hypo['tokens']
             tgt_len = tokens.numel()
             pos_scores = hypo['positional_scores'].float()
-
-            if args.add_bos_token:
-                assert hypo['tokens'][0].item() == task.target_dictionary.bos()
-                tokens = tokens[1:]
-                pos_scores = pos_scores[1:]
-
+            
+            if hasattr(args, 'add_bos_token'):
+                if args.add_bos_token:
+                    assert hypo['tokens'][0].item() == task.target_dictionary.bos()
+                    tokens = tokens[1:]
+                    pos_scores = pos_scores[1:]
+                
             skipped_toks = 0
             if bpe_toks is not None:
                 for i in range(tgt_len - 1):
