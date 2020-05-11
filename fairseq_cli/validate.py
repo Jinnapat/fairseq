@@ -31,7 +31,6 @@ def main(args, override_args=None):
 
     use_fp16 = args.fp16
     use_cuda = torch.cuda.is_available() and not args.cpu
-    print("TEST", override_args)
     if override_args is not None:
         overrides = vars(override_args)
         overrides.update(eval(getattr(override_args, 'model_overrides', '{}')))
